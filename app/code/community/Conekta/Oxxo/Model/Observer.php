@@ -25,7 +25,7 @@ class Conekta_Oxxo_Model_Observer{
       $order_params["tax_lines"]        = self::getTaxLines($order);
       $order_params["customer_info"]    = self::getCustomerInfo($order);
       $order_params["shipping_contact"] = self::getShippingContact($order);
-      $order_params["metadata"]  = array("checkout_id" => $order->getIncrementId());
+      $order_params["metadata"]  = array("checkout_id" => $order->getIncrementId(), "soft_validations" => true);
       $charge_params                    = self::getCharge(intval(((float) $order->grandTotal) * 100), strtotime("+".$days." days"));
 
       try {
