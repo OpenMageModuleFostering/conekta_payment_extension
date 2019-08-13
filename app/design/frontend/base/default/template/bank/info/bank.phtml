@@ -30,20 +30,23 @@
 <?php endif;?>
 
 <?php
-$barcode = $this->getInfo()->getRealtimeBarcodeUrl();
-$reference = $this->getInfo()->getRealtimeBarcode();
-$expiry = $this->getInfo()->getRealtimeExpiryDate();
-$store_name = $this->getInfo()->getRealtimeStoreName();
+$service_name = $this->getInfo()->getBankServiceName();
+$service_number = $this->getInfo()->getBankServiceNumber();
+$bank_name = $this->getInfo()->getBankName();
+$reference = $this->getInfo()->getBankReference();
+$expiry = $this->getInfo()->getBankExpiryDate();
 ?>
 
-<dl class="realtime">
+<dl class="bank">
   <dt><?php echo "Purchase Info:"; ?></dt>
   <dd class="offset">
     <table class="info-table">
       <tbody>
         <tr>
-          <?php if (empty($barcode) != true) {?>
-          <th><img width="270" height="55" style="width:220px;height:50px;" src='<?php echo $barcode ?>'/></th>
+          <?php if (empty($reference) != true) {?>
+          <th><?php echo $this->__('Service Name: %s', $service_name) ?></th>
+          <th><?php echo $this->__('Service Number: %s', $service_number) ?></th>
+          <th><?php echo $this->__('Bank Name: %s', $bank_name) ?></th>
           <th><?php echo $this->__('Reference Number: %s', $reference) ?></th>
           <th><?php echo $this->__('Expiry Date: %s', $expiry) ?></th>
           <?php } else { ?>

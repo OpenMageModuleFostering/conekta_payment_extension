@@ -29,35 +29,26 @@ class Conekta_Webhook_Block_Adminhtml_System_Config_Url extends Mage_Adminhtml_B
 
     $url->setValue($url_string);
 
-    $events = array("events" =>
-        array("charge.created", "charge.paid", "charge.under_fraud_review",
-        "charge.fraudulent", "charge.refunded", "charge.created", "customer.created",
-        "customer.updated", "customer.deleted", "webhook.created", "webhook.updated",
-        "webhook.deleted", "charge.chargeback.created", "charge.chargeback.updated",
-        "charge.chargeback.under_review", "charge.chargeback.lost", "charge.chargeback.won",
-        "payout.created", "payout.retrying", "payout.paid_out", "payout.failed",
-        "plan.created", "plan.updated", "plan.deleted", "subscription.created",
-        "subscription.paused", "subscription.resumed", "subscription.canceled",
-        "subscription.expired", "subscription.updated", "subscription.paid",
-        "subscription.payment_failed", "payee.created", "payee.updated",
-        "payee.deleted", "payee.payout_method.created",
-        "payee.payout_method.updated", "payee.payout_method.deleted"));
+    $events = array("events" => array("charge.paid"), "production_enabled" => 1, "development_enabled" => 1);
     $error = false;
     $error_message = null;
-    try {
-      $different = true;
-      $webhooks = Conekta_Webhook::where();
-      foreach ($webhooks as $webhook) {
-        if (strpos($webhook->webhook_url, $url_string) !== false) {
-          $different = false;
+    if (!empty(Mage::getStoreConfig('payment/webhook/privatekey'))) {
+      try {
+        $different = true;
+        $webhooks = Conekta_Webhook::where();
+        $urls = array();
+
+        foreach ($webhooks as $webhook) {
+           array_push($urls, $webhook->webhook_url);
         }
+
+       if (!in_array($url_string, $urls)){
+          $webhook = Conekta_Webhook::create(array_merge(array("url"=>$url_string), $events));
+       } 
+      } catch(Exception $e) {
+        $error = true;
+        $error_message = $e->getMessage();
       }
-      if ($different) {
-        $webhook = Conekta_Webhook::create(array_merge(array("url"=>$url_string), $events));
-      }
-    } catch(Exception $e) {
-      $error = true;
-      $error_message = $e->getMessage();
     }
 
     $url->setForm($element->getForm());

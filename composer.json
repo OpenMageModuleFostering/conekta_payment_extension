@@ -1,9 +1,9 @@
 {
     "name": "OpenMageModuleFostering/Conekta_Payment_Extension",
     "type": "magento-module",
-    "license": "MTIL",
+    "license": "MITL",
     "homepage": "",
-    "description": "This extension allows you to process online and offline payments in your checkout using Conekta API.",
+    "description": "This extension offers all the payment methods supported by Conekta.",
     "authors": [
     {
         "name": "Mauricio Murga",
