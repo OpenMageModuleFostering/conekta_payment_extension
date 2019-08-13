@@ -1,7 +1,7 @@
 {
     "name": "OpenMageModuleFostering/Conekta_Payment_Extension",
     "type": "magento-module",
-    "license": "MITL",
+    "license": "MIT",
     "homepage": "",
     "description": "This extension offers all the payment methods supported by Conekta.",
     "authors": [
