@@ -143,6 +143,9 @@ class Conekta_Oxxo_Model_Observer{
   public function getDiscountLines($order) {
     $discount_lines = array();
     
+    $totalDiscount = abs(intval($order->getDiscountAmount() * 100));
+    $totalDiscountCoupons = 0;
+
     foreach ($order->getAllItems() as $item) {
       if (floatval($item->getDiscountAmount()) > 0.0) {
         $description = $order->getDiscountDescription();
@@ -154,7 +157,20 @@ class Conekta_Oxxo_Model_Observer{
         $discount_line["type"] = "coupon";
         $discount_line["amount"] = intval($item->getDiscountAmount() * 100);
         $discount_lines = array_merge($discount_lines, array($discount_line));
+
+       $totalDiscountCoupons = $totalDiscountCoupons + $discount_line["amount"];
       }
+    }
+
+    // Discount exceeds unit price or shipping.
+    if (floatval($totalDiscount) > 0.0 && $totalDiscount != $totalDiscountCoupons) {
+      $discount_lines = array();
+      $discount_line = array();
+      $description = "discount_code";
+      $discount_line["code"] = $description;
+      $discount_line["type"] = "coupon";
+      $discount_line["amount"] = $totalDiscount;
+      $discount_lines = array_merge($discount_lines, array($discount_line));
     }
     return $discount_lines;
   }
