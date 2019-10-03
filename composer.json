@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Conekta_Payment_Extension",
+    "name": "OpenMageModuleFostering\/Conekta_Payment_Extension",
     "type": "magento-module",
     "license": "MIT",
     "homepage": "",
     "description": "This extension offers all the payment methods supported by Conekta.",
     "authors": [
-    {
-        "name": "Mauricio Murga",
-        "email": "mauricio@conekta.io"
-    }
-],
+        {
+            "name": "Mauricio Murga",
+            "email": "mauricio@conekta.io"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
