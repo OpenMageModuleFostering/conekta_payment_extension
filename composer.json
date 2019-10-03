@@ -1,5 +1,5 @@
 {
-    "name": "OpenMageModuleFostering\/Conekta_Payment_Extension",
+    "name": "openmage-module-fostering\/conekta_payment_extension",
     "type": "magento-module",
     "license": "MIT",
     "homepage": "",
